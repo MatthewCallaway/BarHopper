@@ -4,7 +4,6 @@
 		    <h1 id="mainTitle">BarHopper</h1>
 		<!-- <img src="avatar.png" class="avatar"> -->
 		<h1>Login Here</h1>
-			<form>
 			<p>Username</p>
 			<input v-model ="name" type="text" name="" placeholder="Enter Username">
 			<p>Password</p>
@@ -12,7 +11,6 @@
 			<input @click="loadData()" type="submit" name="" value="Login">
 			<a href="#">Lost your password?</a><br>
 			<a href="#">Don't have an account?</a>
-			</form>
 		</div>
 	</div>
 </template>
@@ -24,12 +22,12 @@ export default{
 			name: '',
 			pass: ''
 		}
-	}	
-	,
+	},
 	methods:{
 		loadData(){
-			console.log(this.name)
-			console.log(this.pass)
+			this.$http.post('http://127.0.0.1:8000/api/loadData').then(response=>{
+				console.log(response.data)
+			})
 		}
 	}
 }
