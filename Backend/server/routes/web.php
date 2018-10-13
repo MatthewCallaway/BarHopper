@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/loadData', 'tempController@loadData');
+Route::get('/loadData', function () {
+    return 'test';
+});
+
