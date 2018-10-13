@@ -3,8 +3,14 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueOnsen from 'vue-onsenui'; // This imports 'onsenui', so no need to import it separately
+import 'onsenui/css/onsenui.css';
+import 'onsenui/css/onsen-css-components.css';
 
+Vue.use(VueOnsen);
 Vue.config.productionTip = false
+
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -13,3 +19,5 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+
