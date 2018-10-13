@@ -11,7 +11,6 @@ class tempController extends Controller
     public function loadData(){
     	$data = DB::table('test')
 		->get();
-
     	return $data;
     }
 }
