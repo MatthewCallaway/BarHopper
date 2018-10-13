@@ -2,15 +2,14 @@
 	<div id="main-page">
 		<div class="loginbox">
 		    <h1 id="mainTitle">BarHopper</h1>
-		    <button @click="loadData()">test button</button>
 		<!-- <img src="avatar.png" class="avatar"> -->
 		<h1>Login Here</h1>
 			<form>
 			<p>Username</p>
 			<input v-model ="name" type="text" name="" placeholder="Enter Username">
 			<p>Password</p>
-			<input type="password" name="" placeholder="Enter Password">
-			<input type="submit" name="" value="Login">
+			<input v-model ="pass" type="password" name="" placeholder="Enter Password">
+			<input @click="loadData()" type="submit" name="" value="Login">
 			<a href="#">Lost your password?</a><br>
 			<a href="#">Don't have an account?</a>
 			</form>
@@ -22,13 +21,15 @@
 export default{
 	data(){
 		return{
-			name: ''
+			name: '',
+			pass: ''
 		}
-	},
-
+	}	
+	,
 	methods:{
 		loadData(){
 			console.log(this.name)
+			console.log(this.pass)
 		}
 	}
 }
@@ -61,7 +62,8 @@ font-family: sans-serif;
     
     @media screen and (max-width: 415px){
         #mainTitle{
-            padding-bottom: 30000%
+            padding-bottom: 5%;
+            font-size: 300%;
         }
     }
 
