@@ -18,6 +18,10 @@ class LoginController extends Controller
     	//$user->birthday = $request->birthday;
     	$user->username = $request->username;
 
+
+        $hash = password_hash($request->password, PASSWORD_DEFAULT);
+        password_verify($request->password,$data[0]->password)
+
     	$user->save();
     	return 200;
     }
