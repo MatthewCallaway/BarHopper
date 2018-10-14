@@ -5,7 +5,7 @@
 		<!-- <img src="avatar.png" class="avatar"> -->
 		<h1>Login Here</h1>
 			<p>Username</p>
-			<input v-model ="name" type="text" name="" placeholder="Enter Username">
+			<input v-model ="username" type="text" name="" placeholder="Enter Username">
 			<p>Password</p>
 			<input v-model ="pass" type="password" name="" placeholder="Enter Password">
 			<input @click="loadData()" type="submit" name="" value="Login">
@@ -19,14 +19,21 @@
 export default{
 	data(){
 		return{
-			name: '',
+			username: '',
 			pass: ''
 		}
 	},
 	methods:{
 		loadData(){
-			this.$http.post('http://127.0.0.1:8000/api/loadData').then(response=>{
-				console.log(response.data)
+			//ADDED
+			var postData = {
+					pass: this.pass,
+					username: this.username
+				}
+														//ADDED    ADDED
+			 this.$http.post('http://127.0.0.1:8000/api/loadData', postData).then(response=>{
+			 	console.log(response.data)
+
 			})
 		}
 	}
