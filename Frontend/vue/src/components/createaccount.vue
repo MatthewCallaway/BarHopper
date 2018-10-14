@@ -9,16 +9,24 @@
 			<input v-model ="lastName" type="text" name="lName" placeholder="Enter Last Name">
 			<p>Email</p>
 			<input v-model ="email" type="email" name="eMail" placeholder="Enter Your Email">
+
 			<div class="dropdown">
-			<!--<button class="dropbtn">Gender</button>
-			<div id="myDropdown" class="dropdown-content">
-				<a href="#">Male</a>
-				<a href="#">Female</a>
-				</div>-->
-			<b-dropdown id="ddown1" text="Dropdown Button" class="m-md-2">
+			<!--	<button class="dropbtn">Gender</button>
+					<div id="myDropdown" class="dropdown-content">
+						<a href="#">Male</a>
+						<a href="#">Female</a>
+					</div>-->
+					<select v-model="gender">
+					  <option v-for="option in options" v-bind:value="option.value">
+					    {{ option.text }}
+					  </option>
+					</select>
+					<span>Selected: {{ gender }}</span>
+					
+			<!--<b-dropdown id="ddown1" text="Dropdown Button" class="m-md-2">
 			    <b-dropdown-item>Male</b-dropdown-item>
 			    <b-dropdown-item>Female</b-dropdown-item>
-			 </b-dropdown>
+			 </b-dropdown>-->
 			</div>
             <p>Username</p>
             <input v-model ="username" type="text" name="" placeholder="Enter Username">
@@ -41,6 +49,11 @@
 				email: '',
 				username: '',
 				pass: '',
+				gender: '',
+			    options: [
+			      { text: 'Male', value: 'Male' },
+			      { text: 'Female', value: 'Female' }
+			    ]
 			}
 		},
 		methods:{
@@ -50,7 +63,8 @@
 					lastName: this.lastName,
 					email: this.email,
 					pass: this.pass,
-					username: this.username
+					username: this.username,
+					gender: this.gender
 				}
 
 
@@ -61,7 +75,6 @@
 			
 		}
 	}
-
 </script>
 
 
@@ -150,6 +163,7 @@
 		background-color: #ffc107;
 	    color: white;
 	    padding: 2%;
+	    margin-bottom: 5%;
 	    font-size: 100%;
 	    border: none;
 	    cursor: pointer;
@@ -172,7 +186,7 @@
 	    display: block;
 	}
 
-	.show {display:block;}
+	.dropdown:hover .dropdown-content {display: block;}
 
 
 </style>
