@@ -3,7 +3,6 @@
 <div id="main-page">
 	<div class="createBox">
         <h1>Create An Account</h1>
-        <form>
 			<p>First Name</p>
 			<input v-model ="firstName" type="text" name="fName" placeholder="Enter First Name">
 			<p>Last Name</p>
@@ -27,8 +26,6 @@
             <input v-model ="pass" type="password" name="" placeholder="Enter Password">
             <input @click="registerUser()" type="submit" name="" value="Create Account">
             <a href="#">Lost your password?</a><br>
-        </form>
-        
     </div>
 </div>
 </template>
@@ -47,7 +44,7 @@
 			}
 		},
 		methods:{
-			registeruser(){
+			registerUser(){
 				var postData = {
 					firstName: this.firstName,
 					lastName: this.lastName,
