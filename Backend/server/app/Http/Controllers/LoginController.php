@@ -26,8 +26,12 @@ class LoginController extends Controller
     	return 200;
     }
 
-    public function checkUser(Request $request){
 
-     
+    //ADDED does not work
+    public function loadData(Request $request){
+    	$user = User::where('username',$request->username);
+        password_verify($request->password,$user->password);
+
+     	
     }
 }
