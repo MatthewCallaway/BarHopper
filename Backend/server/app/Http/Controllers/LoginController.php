@@ -12,8 +12,8 @@ class LoginController extends Controller
     	$user->lastname = $request->lastName;
     	$user->email = $request->email;
     	$user->password = $request->pass;
-    	$user->gender = $request->gender;
-    	$user->birthday = $request->birthday;
+    	//$user->gender = $request->gender;
+    	//$user->birthday = $request->birthday;
     	$user->username = $request->username;
 
     	$user->save();
