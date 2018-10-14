@@ -25,9 +25,8 @@
             <input v-model ="username" type="text" name="" placeholder="Enter Username">
             <p>Password</p>
             <input v-model ="pass" type="password" name="" placeholder="Enter Password">
-            <input @click="loadData()" type="submit" name="" value="Create Account">
+            <input @click="registerUser()" type="submit" name="" value="Create Account">
             <a href="#">Lost your password?</a><br>
-            <a href="#">Don't have an account?</a>
         </form>
         
     </div>
@@ -48,8 +47,17 @@
 			}
 		},
 		methods:{
-			loadData(){
-				this.$http.post('http://127.0.0.1:8000/api/loadData').then(response=>{
+			registeruser(){
+				var postData = {
+					firstName: this.firstName,
+					lastName: this.lastName,
+					email: this.email,
+					pass: this.pass,
+					username: this.username
+				}
+
+
+				this.$http.post('http://127.0.0.1:8000/api/registerUser', postData).then(response=>{
 					console.log(response.data)
 				})
 			},	
