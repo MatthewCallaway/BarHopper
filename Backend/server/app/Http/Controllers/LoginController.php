@@ -21,4 +21,9 @@ class LoginController extends Controller
     	$user->save();
     	return 200;
     }
+
+    public function checkUser(Request $request){
+
+     
+    }
 }
