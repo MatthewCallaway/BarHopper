@@ -18,6 +18,7 @@ import GoogleMap from './google_map'
       logoutUser(){
         sessionStorage.clear()
         this.$router.push('/')
+        location.reload()
       }
     },
     components:{

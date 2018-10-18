@@ -8,20 +8,21 @@
       <input v-model="lastName" type="text" name="lName" placeholder="Enter Last Name">
       <p>Email</p>
       <input v-model="email" type="email" name="eMail" placeholder="Enter Your Email">
-      <ons-input id="username" modifier="underbar" placeholder="Username" type="date" float></ons-input>
-      <div style="margin-bottom: 10px;">
-        Gender: {{gender}}
-        <div>
-          <select v-model="gender">
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-      </div>
       <p>Username</p>
       <input v-model="username" type="text" name="" placeholder="Enter Username">
       <p>Password</p>
       <input v-model="pass" type="password" name="" placeholder="Enter Password">
+      <p>Birthday</p>
+      <ons-input placeholder="Username" type="date" style="color: white !important;"></ons-input>
+      <div style="margin-bottom: 10px;">
+        <p>Gender: {{gender}}</p>
+        <div>
+          <center>
+            <p>Male</p><input v-model="gender" type="radio" value="Male" name="gender" placeholder="Male">
+            <p>Female</p><input v-model="gender" type="radio" value="Female" name="gender" placeholder="Female">
+          </center>
+        </div>
+      </div>
       <input @click="registerUser()" type="submit" name="" value="Create Account">
       <a href="#">Lost your password?</a><br>
     </div>
@@ -68,8 +69,7 @@ body {
 }
 
 .createBox {
-  width: 320px;
-  height: 650px;
+  width: 100%;
   background: #000;
   color: #ffc107;
   top: 50%;
@@ -108,6 +108,10 @@ input[type="email"] {
   height: 40px;
   color: #fff;
   font-size: 16px;
+}
+
+input {
+  color: white !important;
 }
 
 .createBox input[type="submit"] {
