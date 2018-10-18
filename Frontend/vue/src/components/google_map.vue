@@ -1,0 +1,94 @@
+<template>
+  <div>
+    <button id="more" @click="loadArea()">More Locations</button>
+    <div id="map">
+    </div>
+    <div id="places">
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      current_location: null,
+      map: null
+    }
+  },
+  mounted: function() {
+    var that = this
+    window.addEventListener('load', () => {
+      this.loadMap()
+    })
+    setTimeout(this.loadMap(), 1000);
+  },
+  methods: {
+    loadMap() {
+      this.current_location = new google.maps.LatLng(38.9511, -92.3266);
+      this.map = new google.maps.Map(document.getElementById('map'), {
+        center: this.current_location,
+        zoom: 15
+      });
+    },
+    loadArea() {
+      var service = new google.maps.places.PlacesService(this.map);
+      var getNextPage = null;
+      var moreButton = document.getElementById('more');
+      moreButton.onclick = function() {
+        moreButton.disabled = true;
+        if (getNextPage) getNextPage();
+      };
+      var that = this
+      service.nearbySearch({ location: this.current_location, radius: 1000, type: ['bar'], keyword: ['drinks'] },
+        function(results, status, pagination) {
+          if (status !== 'OK') return;
+          that.createMarkers(results);
+          moreButton.disabled = !pagination.hasNextPage;
+          getNextPage = pagination.hasNextPage && function() {
+            pagination.nextPage();
+          };
+        });
+    },
+    createMarkers(places) {
+      var bounds = new google.maps.LatLngBounds();
+      var placesList = document.getElementById('places');
+
+      for (var i = 0, place; place = places[i]; i++) {
+        var image = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        var marker = new google.maps.Marker({
+          map: this.map,
+          icon: image,
+          title: place.name,
+          position: place.geometry.location
+        });
+
+        var li = document.createElement('li');
+        li.textContent = place.name;
+        placesList.appendChild(li);
+
+        bounds.extend(place.geometry.location);
+      }
+      this.map.fitBounds(bounds);
+    }
+  }
+}
+
+</script>
+<style>
+#map {
+  height: 400px;
+  width: 100%;
+}
+
+#places {
+  height: 500px;
+}
+
+</style>

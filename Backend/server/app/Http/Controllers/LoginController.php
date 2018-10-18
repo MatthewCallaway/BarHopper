@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 
 class LoginController extends Controller
@@ -16,25 +17,17 @@ class LoginController extends Controller
     	//$user->gender = $request->gender;
     	//$user->birthday = $request->birthday;
     	$user->username = $request->username;
-        $hash = password_hash($request->password, PASSWORD_DEFAULT);
+        $hash = Hash::make($request->pass);
         $user->password = $hash;
         $user->save();
     	return 200;
     }
 
-
-    //ADDED does not work
-    public function loadData(Request $request){
+    public function loginUser(Request $request){
     	$user = User::where('username',$request->username)->get();
-        $success = "success";
-        $fail = "fail";
-
-     	if (password_verify($user[0]->password,$request->pass)) {
-    		return $success;
-		} else {
-    		return $fail;
-		}
-
-		return 200;
+     	if (Hash::check($request->pass, $user[0]->password))
+    		return $user[0];
+        else
+            return 500;
     }
 }
