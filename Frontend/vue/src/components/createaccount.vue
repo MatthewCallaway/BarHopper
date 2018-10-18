@@ -8,6 +8,7 @@
       <input v-model="lastName" type="text" name="lName" placeholder="Enter Last Name">
       <p>Email</p>
       <input v-model="email" type="email" name="eMail" placeholder="Enter Your Email">
+      <ons-input id="username" modifier="underbar" placeholder="Username" type="date" float></ons-input>
       <div style="margin-bottom: 10px;">
         Gender: {{gender}}
         <div>
