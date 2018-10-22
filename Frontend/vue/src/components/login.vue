@@ -1,5 +1,5 @@
 <template>
-  <div id="main-page">
+  <div>
     <div class="loginbox" style="overflow: scroll">
       <h1 id="mainTitle">BarHopper</h1>
       <p>Username</p>
@@ -7,8 +7,7 @@
       <p>Password</p>
       <input v-model="pass" type="password" name="" placeholder="Enter Password">
       <input @click="loginUser()" type="submit" name="" value="Login">
-      <a href="#">Lost your password?</a><br>
-      <a href="#/createaccount">Don't have an account?</a>
+      <a href="#/createaccount">Want to create an account?</a>
     </div>
   </div>
 </template>
@@ -51,15 +50,6 @@ export default {
 @-ms-viewport {
   width: device-width;
   height: device-height;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  /*background: url(logo.png);*/
-  background-size: cover;
-  background-position: center;
-  font-family: sans-serif;
 }
 
 #mainTitle {

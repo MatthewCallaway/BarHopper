@@ -2,33 +2,35 @@
   <div>
     <button @click="logoutUser()">Logout</button>
     <google-map></google-map>
+    <div id="map">
+    </div>
   </div>
 </template>
-
 <script>
 import GoogleMap from './google_map'
 
-  export default{
-    data(){
-      return{
+export default {
+  data() {
+    return {
 
-      }
+    }
+  },
+  methods: {
+    logoutUser() {
+      sessionStorage.clear()
+      this.$router.push('/')
+      location.reload()
     },
-    methods: {
-      logoutUser(){
-        sessionStorage.clear()
-        this.$router.push('/')
-        location.reload()
-      }
-    },
-    components:{
-      GoogleMap
-    },
-    mounted: function(){
-      if(this.$store.state.user == null){
-        this.$router.push('/')
-        alert('Please Log In')
-      }
+  },
+  components: {
+    GoogleMap
+  },
+  mounted: function() {
+    if (this.$store.state.user == null) {
+      this.$router.push('/')
+      alert('Please Log In')
     }
   }
+}
+
 </script>
