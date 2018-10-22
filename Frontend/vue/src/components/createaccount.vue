@@ -33,6 +33,8 @@
   </div>
 </template>
 <script>
+import {registerUser} from '../router/config'
+
 export default {
   data() {
     return {
@@ -61,7 +63,7 @@ export default {
         gender: this.gender,
         birthday: this.birthday
       }
-      this.$http.post('http://127.0.0.1:8000/api/registerUser', postData).then(response => {
+      this.$http.post(registerUser, postData).then(response => {
         this.isLoading = false;
         alert('Account Created')
         this.$router.push('/')

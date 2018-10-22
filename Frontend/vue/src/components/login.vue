@@ -12,6 +12,8 @@
   </div>
 </template>
 <script>
+import {loginUser} from '../router/config'
+
 export default {
   data() {
     return {
@@ -25,7 +27,7 @@ export default {
         username: this.name,
         pass: this.pass
       }
-      this.$http.post('http://127.0.0.1:8000/api/loginUser', postData).then(response => {
+      this.$http.post(loginUser, postData).then(response => {
         if (response.status == 500)
           alert('Login Failed')
         else {

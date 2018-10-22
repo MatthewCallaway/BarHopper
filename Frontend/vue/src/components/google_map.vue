@@ -63,14 +63,14 @@ export default {
         document.getElementsByTagName("ons-switch")[0].removeAttribute("checked");
         document.getElementsByTagName("ons-switch")[1].setAttribute("checked");
         document.getElementsByTagName("ons-switch")[1].removeAttribute("disabled");
-        document.getElementsByTagName("ons-button")[0].removeAttribute("disabled");
+        document.getElementsByTagName("ons-button")[1].removeAttribute("disabled");
       } else {
         this.useCurrentLocation = true
         document.getElementsByTagName("ons-switch")[1].setAttribute("disabled");
         document.getElementsByTagName("ons-switch")[1].removeAttribute("checked");
         document.getElementsByTagName("ons-switch")[0].setAttribute("checked");
         document.getElementsByTagName("ons-switch")[0].removeAttribute("disabled");
-        document.getElementsByTagName("ons-button")[0].setAttribute("disabled");
+        document.getElementsByTagName("ons-button")[1].setAttribute("disabled");
       }
     },
     searchLocation() {
