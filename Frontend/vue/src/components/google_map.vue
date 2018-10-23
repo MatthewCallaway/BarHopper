@@ -33,6 +33,8 @@
         <v-ons-switch @click="switchLocations('specific')"></v-ons-switch>
       </div>
     </v-ons-list-item>
+    <div id="image">
+    </div>
     <div id="places">
     </div>
   </v-ons-page>
@@ -128,6 +130,13 @@ export default {
       service.nearbySearch({ location: location, radius: 1000, type: ['bar'], keyword: ['drinks'] },
         function(results, status, pagination) {
           if (status !== 'OK') return;
+
+          // console.log(results[0].photos[0].getUrl())
+          // var img = new Image(100,100)
+          // img.src = results[0].photos[0].getUrl()
+          // var image = document.getElementById('image')
+          // image.appendChild(img)
+
           that.createMarkers(results);
           moreButton.disabled = !pagination.hasNextPage;
           getNextPage = pagination.hasNextPage && function() {
@@ -155,9 +164,27 @@ export default {
           position: place.geometry.location
         });
 
-        var li = document.createElement('li');
-        li.textContent = place.name;
-        placesList.appendChild(li);
+        var div = document.createElement('div');
+        var span = document.createElement('span');
+        var img = new Image(75, 75)
+
+        span.textContent = place.name
+        span.style.lineHeight = '75px'
+
+        img.src = place.photos[0].getUrl()
+        img.style.float = 'right'
+
+        div.style.height = '75px'
+        div.style.padding = '10px'
+        div.style.borderBottom = 'thick solid black'
+
+        placesList.appendChild(div);
+        div.appendChild(img)
+        div.appendChild(span)
+
+        
+
+
 
         bounds.extend(place.geometry.location);
       }

@@ -1,4 +1,4 @@
-export const apiDomain = 'http://104.248.226.81/'
+export const apiDomain = 'https://server.barhopper.ml/'
 // export const apiDomain = 'localhost:8080'
 
 export const loginUser = apiDomain + 'api/loginUser'
