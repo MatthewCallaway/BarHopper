@@ -25,6 +25,7 @@ class LoginController extends Controller
 
     public function loginUser(Request $request){
     	$user = User::where('username',$request->username)->get();
+        // return $user;
      	if (Hash::check($request->pass, $user[0]->password))
     		return $user[0];
         else

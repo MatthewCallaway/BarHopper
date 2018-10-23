@@ -1,8 +1,5 @@
 <template>
-  <v-ons-page>
-    <ons-toolbar>
-      <div class="center">Bars</div>
-    </ons-toolbar>
+  <v-ons-page style="margin-top: 40px;">
     <section>
       <div class="center">
         <v-ons-input style="border: black; padding:10px; width: 60%;" placeholder="Enter Location..." v-model="geocode">
@@ -11,28 +8,32 @@
       </div>
       <v-ons-button disabled modifier="large" style="margin: 6px 0; background: goldenrod;" @click="searchLocation()">Search With Chosen Location</v-ons-button>
     </section>
-    <div id="map">
+    <div id="map" style="border:solid goldenrod;width:98%;">
     </div>
     <v-ons-button modifier="large" style="margin: 6px 0; background: goldenrod;" @click="loadArea()">Load Locations</v-ons-button>
     <center>
       <v-ons-button id="more" modifier="quiet" style="margin: 6px 0; color: goldenrod;">Load More</v-ons-button>
     </center>
-    <v-ons-list-item>
-      <div class="center">
-        Use Current Location
-      </div>
-      <div class="right">
-        <v-ons-switch @click="switchLocations('current')"></v-ons-switch>
-      </div>
-    </v-ons-list-item>
-    <v-ons-list-item>
-      <div class="center">
-        Use Specific Address
-      </div>
-      <div class="right">
-        <v-ons-switch @click="switchLocations('specific')"></v-ons-switch>
-      </div>
-    </v-ons-list-item>
+    <v-ons-list>
+    <v-ons-list-header>Search Options</v-ons-list-header>
+      <v-ons-list-item>
+        <div class="center">
+          Use Current Location
+        </div>
+        <div class="right">
+          <v-ons-switch @click="switchLocations('current')"></v-ons-switch>
+        </div>
+      </v-ons-list-item>
+      <v-ons-list-item>
+        <div class="center">
+          Use Specific Address
+        </div>
+        <div class="right">
+          <v-ons-switch @click="switchLocations('specific')"></v-ons-switch>
+        </div>
+      </v-ons-list-item>
+    </v-ons-list>
+    <v-ons-list-header>Places</v-ons-list-header>
     <div id="image">
     </div>
     <div id="places">
@@ -165,11 +166,15 @@ export default {
         });
 
         var div = document.createElement('div');
-        var span = document.createElement('span');
+        var title = document.createElement('span');
+        var rating = document.createElement('span');
+
         var img = new Image(75, 75)
 
-        span.textContent = place.name
-        span.style.lineHeight = '75px'
+        console.log(place)
+
+        title.textContent = place.name
+        rating.textContent = place.rating
 
         img.src = place.photos[0].getUrl()
         img.style.float = 'right'
@@ -180,9 +185,8 @@ export default {
 
         placesList.appendChild(div);
         div.appendChild(img)
-        div.appendChild(span)
-
-        
+        div.appendChild(title)
+        div.appendChild(rating)
 
 
 

@@ -27,8 +27,9 @@ export default {
         username: this.name,
         pass: this.pass
       }
+      console.log(postData)
       this.$http.post(loginUser, postData).then(response => {
-        if (response.status == 500)
+        if (response.data == 500)
           alert('Login Failed')
         else {
           var userCreds = {

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <button @click="logoutUser()">Logout</button>
+    <v-ons-toolbar>
+      <div class="center">Home</div>
+      <div class="left">
+        <v-ons-button modifier="quiet" @click="logoutUser()">Logout</v-ons-button>
+      </div>
+    </v-ons-toolbar>
     <google-map></google-map>
-    <div id="map">
-    </div>
   </div>
 </template>
 <script>
