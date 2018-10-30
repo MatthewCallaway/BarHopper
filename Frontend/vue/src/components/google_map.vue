@@ -4,9 +4,8 @@
       <div class="center">
         <v-ons-input style="border: black; padding:10px; width: 60%;" placeholder="Enter Location..." v-model="geocode">
         </v-ons-input>
-        <v-ons-button @click="getCurrentLocation()" modifier="quiet" style="width:30%;line-height: 40px; margin-left: 10px;margin-top:10px;">Clear Map</v-ons-button>
+        <v-ons-button @click="searchLocation()" style="width:30%; margin-left: 10px;margin-top:10px;text-align: center;background: goldenrod;">Search</v-ons-button>
       </div>
-      <v-ons-button disabled modifier="large" style="margin: 6px 0; background: goldenrod;" @click="searchLocation()">Search With Chosen Location</v-ons-button>
     </section>
     <div id="map" style="border:solid goldenrod;width:98%;">
     </div>
@@ -14,25 +13,6 @@
     <center>
       <v-ons-button id="more" modifier="quiet" style="margin: 6px 0; color: goldenrod;">Load More</v-ons-button>
     </center>
-    <v-ons-list>
-    <v-ons-list-header>Search Options</v-ons-list-header>
-      <v-ons-list-item>
-        <div class="center">
-          Use Current Location
-        </div>
-        <div class="right">
-          <v-ons-switch @click="switchLocations('current')"></v-ons-switch>
-        </div>
-      </v-ons-list-item>
-      <v-ons-list-item>
-        <div class="center">
-          Use Specific Address
-        </div>
-        <div class="right">
-          <v-ons-switch @click="switchLocations('specific')"></v-ons-switch>
-        </div>
-      </v-ons-list-item>
-    </v-ons-list>
     <v-ons-list-header>Places</v-ons-list-header>
     <div id="image">
     </div>
@@ -44,8 +24,6 @@
 export default {
   data() {
     return {
-      useCurrentLocation: true,
-      useChosenLocation: false,
       current_location: null,
       chosen_location: null,
       map: null,
@@ -55,27 +33,8 @@ export default {
   },
   mounted: function() {
     this.getCurrentLocation()
-    document.getElementsByTagName("ons-switch")[0].setAttribute("checked");
-    document.getElementsByTagName("ons-switch")[1].setAttribute("disabled");
   },
   methods: {
-    switchLocations(location) {
-      if (location == 'current') {
-        this.useCurrentLocation = false
-        document.getElementsByTagName("ons-switch")[0].setAttribute("disabled");
-        document.getElementsByTagName("ons-switch")[0].removeAttribute("checked");
-        document.getElementsByTagName("ons-switch")[1].setAttribute("checked");
-        document.getElementsByTagName("ons-switch")[1].removeAttribute("disabled");
-        document.getElementsByTagName("ons-button")[1].removeAttribute("disabled");
-      } else {
-        this.useCurrentLocation = true
-        document.getElementsByTagName("ons-switch")[1].setAttribute("disabled");
-        document.getElementsByTagName("ons-switch")[1].removeAttribute("checked");
-        document.getElementsByTagName("ons-switch")[0].setAttribute("checked");
-        document.getElementsByTagName("ons-switch")[0].removeAttribute("disabled");
-        document.getElementsByTagName("ons-button")[1].setAttribute("disabled");
-      }
-    },
     searchLocation() {
       var that = this
       var address = this.geocode;
@@ -114,6 +73,7 @@ export default {
       });
     },
     loadArea() {
+      document.getElementById('places').innerHTML = ""
       var service = new google.maps.places.PlacesService(this.map);
       var getNextPage = null;
       var moreButton = document.getElementById('more');
@@ -123,21 +83,14 @@ export default {
       };
       var that = this
       var location
-      if (this.useCurrentLocation == true)
+      if (this.geocode == null)
         location = this.current_location
-      else if (this.useCurrentLocation == false)
+      else
         location = this.chosen_location
 
-      service.nearbySearch({ location: location, radius: 1000, type: ['bar'], keyword: ['drinks'] },
+      service.nearbySearch({ location: location, radius: 1000, type: ['bar'], keyword: [''] },
         function(results, status, pagination) {
           if (status !== 'OK') return;
-
-          // console.log(results[0].photos[0].getUrl())
-          // var img = new Image(100,100)
-          // img.src = results[0].photos[0].getUrl()
-          // var image = document.getElementById('image')
-          // image.appendChild(img)
-
           that.createMarkers(results);
           moreButton.disabled = !pagination.hasNextPage;
           getNextPage = pagination.hasNextPage && function() {
@@ -166,15 +119,22 @@ export default {
         });
 
         var div = document.createElement('div');
-        var title = document.createElement('span');
-        var rating = document.createElement('span');
+        var title = document.createElement('div');
+        var rating = document.createElement('div');
+        var price = document.createElement('div');
+
 
         var img = new Image(75, 75)
 
         console.log(place)
 
         title.textContent = place.name
-        rating.textContent = place.rating
+
+        rating.textContent = 'Rating: ' + place.rating
+        price.textContent = 'Price: '
+        for (var x = 0; x < place.price_level; x++)
+          price.textContent = price.textContent + '$'
+
 
         img.src = place.photos[0].getUrl()
         img.style.float = 'right'
@@ -187,8 +147,7 @@ export default {
         div.appendChild(img)
         div.appendChild(title)
         div.appendChild(rating)
-
-
+        div.appendChild(price)
 
         bounds.extend(place.geometry.location);
       }
@@ -200,7 +159,7 @@ export default {
 </script>
 <style>
 #map {
-  height: 400px;
+  height: 300px;
   width: 100%;
 }
 

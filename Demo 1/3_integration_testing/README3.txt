@@ -1,0 +1,2 @@
+
+Any code that runs a query to our database is run through our environment file. Our database is the only service separated, backend and frontend run on the same server. The failed integration of the database with the rest of our services would be fatal, so a login test ensure's that compatibility everytime.
